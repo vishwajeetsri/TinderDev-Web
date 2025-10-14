@@ -5,25 +5,28 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
-
 const Login = () => {
   const [email, setEmail] = useState("rahul@gmail.com");
   const [password, setPassword] = useState("Rahul@123");
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const [error, setError] = useState("")
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post(BASE_URL + "/login", {
-        email,
-        password,
-      },
-       {withCredentials: true}
-    );
-    
-    dispatch(addUser(res.data))
-    return navigate("/")
+      const res = await axios.post(
+        BASE_URL + "/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+
+      dispatch(addUser(res.data));
+      return navigate("/");
     } catch (err) {
+      setError(err?.response?.data || "Something went wrong")
       console.error(err);
     }
   };
@@ -48,7 +51,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="input"
         />
-
+        <p className="text-red-300">{error}</p>
         <button className="btn btn-neutral mt-4" onClick={handleLogin}>
           Login
         </button>
