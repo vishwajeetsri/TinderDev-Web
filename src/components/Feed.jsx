@@ -13,7 +13,7 @@ const Feed = () => {
     if (feed && feed.length > 0) return; // ✅ safe fetch
     try {
       const res = await axios.get(`${BASE_URL}/feed`, { withCredentials: true });
-      console.log("API response:", res.data);
+      
 
       const feedData = Array.isArray(res.data) ? res.data : res.data.data;
       dispatch(addFeed(feedData || []));
@@ -27,7 +27,7 @@ const Feed = () => {
   }, []);
 
   if (!feed) return <div>Loading feed...</div>;
-  if (feed.length === 0) return <div>No users found.</div>;
+  if (feed.length === 0) return <div className="flex justify-center my-10">No users found.</div>;
 
   return (
     <div className="flex justify-center mt-8">
