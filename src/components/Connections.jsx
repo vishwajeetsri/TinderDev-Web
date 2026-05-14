@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const connections = useSelector((store) => store.connection);
@@ -63,6 +64,12 @@ const Connections = () => {
                 <p className="text-gray-400 text-sm mt-3 line-clamp-3">
                   {about || "No bio available."}
                 </p>
+              </div>
+              <div className="mt-5 ml-28">
+                <Link to={"/chat/" + _id}>
+              <button className="btn btn-primary">chat</button>
+              </Link>
+            
               </div>
             </div>
           );
